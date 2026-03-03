@@ -1,0 +1,19 @@
+name: Vanity Sniper Pentest
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '* * * * *'
+
+jobs:
+  pentest:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    - run: pip install aiohttp dataclasses
+    - run: python sniper.py
+      env:
+        TOKEN: ${{ secrets.TOKEN }}
+        GUILD_ID: ${{ secrets.GUILD_ID }}
